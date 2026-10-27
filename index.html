@@ -25,15 +25,15 @@ button{font:inherit;font-weight:800;border:0;border-radius:13px;padding:14px 16p
 <header><div class="logo" aria-hidden="true">⚽</div><div><div class="eyebrow">RANDOMISE • ROTATE • PLAY</div><h1>Weds Night Footy</h1></div></header>
 <p class="intro">Two teams. Any number of players. Each player takes two turns in goal, with the same order repeated for round two.</p>
 <form id="rotaForm"><div class="teams">
-<section class="panel"><h2 class="team-head"><span class="dot blue"></span> Bibs</h2><label for="bibs">Enter your players</label><textarea id="bibs" placeholder="Alex&#10;Ben&#10;Chris&#10;Dan&#10;Elliot&#10;Frank" required></textarea><p class="hint">One name per line, or separate names with commas.</p></section>
-<section class="panel"><h2 class="team-head"><span class="dot red"></span> Colours</h2><label for="colours">Enter your players</label><textarea id="colours" placeholder="Jamie&#10;Kai&#10;Lee&#10;Morgan&#10;Sam&#10;Taylor" required></textarea><p class="hint">This team is randomised independently. Add as many players as you need.</p></section>
+<section class="panel"><h2 class="team-head"><span class="dot blue"></span> Bibs</h2><label for="bibs">Enter your players</label><textarea id="bibs" placeholder="Raj&#10;Sam&#10;Chris&#10;Jason&#10;Squeak&#10;Mason" required></textarea><p class="hint">One name per line, or separate names with commas.</p></section>
+<section class="panel"><h2 class="team-head"><span class="dot red"></span> Colours</h2><label for="colours">Enter your players</label><textarea id="colours" placeholder="Hawkins&#10;Ken&#10;Watto&#10;Jamie F&#10;Jono&#10;Taylor" required></textarea><p class="hint">This team is randomised independently. Add as many players as you need.</p></section>
 </div><section class="panel"><label for="duration">Match length</label><select id="duration" style="width:100%;font:inherit;color:var(--text);background:#091c13;border:1px solid #355744;border-radius:12px;padding:13px"><option value="60">60 minutes — 2 turns each</option><option value="48">48 minutes — 2 turns each</option><option value="72">72 minutes — 2 turns each</option><option value="90">90 minutes — 2 turns each</option></select><p class="hint">The match is split into two identical rounds. Slot times start at kick-off; times are rounded to the nearest minute for display.</p></section>
 <button class="primary" type="submit">⚡ Randomise Both Teams</button><div id="status" class="status" role="status" aria-live="polite"></div></form>
 <section id="results" class="results" aria-live="polite"><div class="teams">
 <section class="panel"><div class="result-title"><h2><span class="dot blue"></span> Bibs rota</h2><span class="pill">RANDOM DRAW</span></div><div id="outBibs"></div></section>
 <section class="panel"><div class="result-title"><h2><span class="dot red"></span> Colours rota</h2><span class="pill">RANDOM DRAW</span></div><div id="outColours"></div></section>
 </div><section class="panel"><div class="actions"><button class="secondary" id="shareBtn" type="button">Share Results</button><button class="secondary" id="copyBtn" type="button">Copy Results</button><button class="secondary" id="againBtn" type="button">Draw Again</button></div><p class="hint">Share the rota to WhatsApp or another app.</p></section></section>
-<footer>Weds Night Footy · No account needed. Designed for your six-a-side goalkeeper rotation.</footer></main>
+<footer>Weds Night Footy · Designed for Chilwell Footy goalkeeper rotation.</footer></main>
 <script>
 const $=id=>document.getElementById(id);let latestText="";
 function parseNames(value){return value.split(/[\n,;]+/).map(s=>s.trim()).filter(Boolean)}
