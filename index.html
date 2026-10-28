@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en-GB">
 <head>
@@ -33,9 +32,11 @@ h1{font-size:clamp(25px,6vw,36px);letter-spacing:-.04em;margin:3px 0 0}
 label{display:block;font-weight:700;font-size:13px;margin:13px 0 7px;color:#e5eee7}
 textarea{width:100%;font:inherit;color:var(--text);background:#091c13;border:1px solid #355744;border-radius:12px;padding:13px;outline:none;min-height:104px;resize:vertical;line-height:1.5}
 textarea:focus{border-color:var(--lime);box-shadow:0 0 0 3px #b7f32620}
+textarea:disabled{opacity:0.7;cursor:not-allowed}
 .hint{color:var(--muted);font-size:12px;line-height:1.45;margin:7px 0 0}
 button{font:inherit;font-weight:800;border:0;border-radius:13px;padding:14px 16px;cursor:pointer}
 .primary{width:100%;background:var(--lime);color:#10291e;margin:5px 0 10px;font-size:16px}
+.primary:disabled{opacity:0.6;cursor:not-allowed;background:#789c45;color:#0b1c14}
 .secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
 .actions{display:flex;gap:9px;flex-wrap:wrap}
 .actions button{flex:1;min-width:140px}
@@ -78,18 +79,18 @@ footer{color:var(--muted);font-size:12px;line-height:1.5;text-align:center;margi
 <p class="hint">This team is randomised independently. Add as many players as you need.</p>
 </section>
 </div>
-<button class="primary" type="submit">⚡ Randomise Both Teams</button>
+<button class="primary" id="submitBtn" type="submit">⚡ Randomise Both Teams</button>
 <div id="status" class="status" role="status" aria-live="polite"></div>
 </form>
 
 <section id="results" class="results" aria-live="polite">
 <div class="teams">
 <section class="panel">
-<div class="result-title"><h2><span class="dot blue"></span> Bibs rota</h2><span class="pill">RANDOM DRAW</span></div>
+<div class="result-title"><h2><span class="dot blue"></span> Bibs rota</h2><span class="pill">FINAL DRAW</span></div>
 <div id="outBibs"></div>
 </section>
 <section class="panel">
-<div class="result-title"><h2><span class="dot red"></span> Colours rota</h2><span class="pill">RANDOM DRAW</span></div>
+<div class="result-title"><h2><span class="dot red"></span> Colours rota</h2><span class="pill">FINAL DRAW</span></div>
 <div id="outColours"></div>
 </section>
 </div>
@@ -97,9 +98,8 @@ footer{color:var(--muted);font-size:12px;line-height:1.5;text-align:center;margi
 <div class="actions">
 <button class="secondary" id="shareBtn" type="button">Share Results</button>
 <button class="secondary" id="copyBtn" type="button">Copy Results</button>
-<button class="secondary" id="againBtn" type="button">Draw Again</button>
 </div>
-<p class="hint">Share the rota to WhatsApp or another app.</p>
+<p class="hint">Share the rota to WhatsApp or another app. Order is locked in.</p>
 </section>
 </section>
 <footer>Goal Keeper Rotation · Designed for Weds Night Footy @ Chilwell.</footer>
@@ -171,7 +171,13 @@ COLOURS (${b.length} players)
 ${two}`;
 
   $("results").classList.add("show");
-  $("status").textContent = `Bibs: ${a.length} player${a.length === 1 ? "" : "s"}. Colours: ${b.length} player${b.length === 1 ? "" : "s"}. Each team has its own random order.`;
+  $("status").textContent = `Bibs: ${a.length} player${a.length === 1 ? "" : "s"}. Colours: ${b.length} player${b.length === 1 ? "" : "s"}. Order locked!`;
+  
+  // Lock inputs and submit button so it cannot be redrawn or modified
+  $("bibs").disabled = true;
+  $("colours").disabled = true;
+  $("submitBtn").disabled = true;
+
   $("results").scrollIntoView({behavior:"smooth", block:"start"});
   return true;
 }
@@ -180,8 +186,6 @@ $("rotaForm").addEventListener("submit", e => {
   e.preventDefault();
   generate();
 });
-
-$("againBtn").addEventListener("click", generate);
 
 $("copyBtn").addEventListener("click", async () => {
   try {
